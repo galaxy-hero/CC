@@ -1,0 +1,2 @@
+IMG_0735.MOV filter=lfs diff=lfs merge=lfs -text
+*.MOV filter=lfs diff=lfs merge=lfs -text
