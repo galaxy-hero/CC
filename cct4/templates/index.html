@@ -1,0 +1,18 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>Your Chat Application</title>
+</head>
+<body>
+    <div class="container my-1">
+        <!--buttons for chatrooms-->
+        <div class="account mb-2 text-center">
+            <input type="submit" value="Login" onclick="window.location='https://chatappb2c.b2clogin.com/chatappb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_signin&client_id=842068b8-3e00-400a-a006-f501fc3cdd45&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms%2F&scope=openid&response_type=id_token&prompt=login';" />
+            <input type="submit" value="Register" onclick="window.location='https://chatappb2c.b2clogin.com/chatappb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_signup&client_id=842068b8-3e00-400a-a006-f501fc3cdd45&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms%2F&scope=openid&response_type=id_token&prompt=login';" />
+        </div>
+    </div>
+</body>
+</html>
