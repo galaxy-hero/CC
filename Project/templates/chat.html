@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <meta name="google-signin-client_id"
+          content="1029400584351-5rqn6vfcrd90i844vkv619mnsjlfhk6n.apps.googleusercontent.com">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/cookie.js') }}"></script>
+    <script src="./static/js/checkspelling.js"></script>
+    <title>Chat Room</title>
+</head>
+<body>
+<!--container & title-->
+<div class="container my-4">
+    <!--buttons for chatrooms-->
+    <div class="chat-rooms mb-3 text-center">
+        <img src="./static/Media/logo.png" width="500" height="260">
+        <h2 style="color:white">Choose a chatroom:</h2>
+
+        {% for room in rooms %}
+            <button class="btn" id="{{ room['name'] }}">#{{ room['name'] }}</button>
+        {% endfor %}
+
+        <div class="center hideform">
+            <button id="close" style="float: right;">X</button>
+            <form action="/topic" method="POST">
+                <p style="color:white">Room name:</p><br>
+                <input type="text" name="roomname" placeholder="Python">
+                <br><br>
+                <input class="btn" type="submit" value="Submit">
+            </form>
+        </div>
+        <button class="btn" id="show">+</button>
+    </div>
+
+    <div class="aligbt">
+        <div class="visit-store">
+            <button class="btn mb-3 mt-3" id="store">Visit store!</button>
+        </div>
+        <div class="logout">
+            <button class="btn mb-3 mt-3">
+                {% if session['email'] is defined %}
+                    Sign out
+                {% else %}
+                    Login
+                {% endif %}
+            </button>
+        </div>
+    </div>
+
+    <!--chat window-->
+    <div class="chat-window">
+        <ul class="chat-list list-group d-flex justify-content-between"></ul>
+    </div>
+
+    <!--new chat form-->
+    <form class="new-chat my-3">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Your message:</div>
+            </div>
+            <input type="text" id="message" class="form-control" required>
+            <div class="input-group-append">
+                <input type="submit" class="btn" value="send">
+            </div>
+        </div>
+    </form>
+
+    <!--update name form-->
+
+    <form class="new-name my-3">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">Update name:</div>
+            </div>
+            <input type="text" id="name" class="form-control" required>
+            <div class="input-group-append">
+                <input type="submit" class="btn" value="update">
+            </div>
+        </div>
+        <div class="update-msg"></div>
+    </form>
+
+    <div class="service-buttons btn-group mb-3 text-center">
+        <div class="translate">
+            <button class="btn mr-2" id="transl">Translate to spanish</button>
+        </div>
+        <div class="check">
+            <button class="btn">Check Spelling</button>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script>
+    function onLoad() {
+        gapi.load('auth2', function () {
+            gapi.auth2.init();
+        });
+    }
+</script>
+
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDLeTL5yxvaCDC37qGkc8hpT9_E4JMheoc",
+        authDomain: "a2b3c4d.firebaseapp.com",
+        databaseURL: "https://a2b3c4d.firebaseio.com",
+        projectId: "a2b3c4d",
+        storageBucket: "a2b3c4d.appspot.com",
+        messagingSenderId: "225503992492",
+        appId: "1:225503992492:web:adec1b152d34e3d3679d09",
+        measurementId: "G-MDNMXX0B1C"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+</script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cookie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

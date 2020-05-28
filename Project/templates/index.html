@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta name="google-signin-client_id"
+          content="1029400584351-5rqn6vfcrd90i844vkv619mnsjlfhk6n.apps.googleusercontent.com">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/cookie.js') }}"></script>
+    <title>Your Chat Application</title>
+</head>
+<style>
+    body, html {
+        height: 100%;
+        display: grid;
+    }
+
+</style>
+<body>
+
+<script>
+    function signOut() {
+        deleteCookie('email');
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+</script>
+
+<div class="center-me">
+    <div class="chat-rooms mb-3 text-center"><img src="./static/Media/logo.png" width="500" height="260">
+        <div>
+
+            <br>
+            <br>
+
+            <div class="center-me googlebtn" align="center">
+
+                {% if loggedIn != '1' %}
+                    <div class="g-signin2" data-onsuccess="onSignIn" data-width="300" data-height="50"></div>
+
+                {% else %}
+                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                        <form method="GET" action="/chat"><input class="btn btn-secondary" type="submit" value="Chat"></form>
+
+                        <form method="GET" action="/store"><input class="btn btn-secondary" type="submit" value="Store"></form>
+                        <form method="GET" action="/"><input class="btn btn-secondary logout" onclick="signOut()" type="submit" value="Sign Out"></form>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <script type="text/javascript">
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                var email = profile.getEmail();
+                var url = `/signin?email=${email}`;
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    success: function () {
+                        writeCookie("email", email, 1);
+                        window.location = "/";
+                    }
+                });
+            }
+
+
+
+        </script>
+
+        {# #}
+        {#
+        <div class="container my-4">#}
+        {# <img src="./static/Media/logo.png">#}
+        {#        <!--buttons for chatrooms-->#}
+        {#
+            <div class="chat-rooms mb-3 text-center">#}
+        {##}
+        {#
+            </div>
+            #}
+        {#
+        </div>
+        #}
+        <script>
+            function onLoad() {
+                gapi.load('auth2', function () {
+                    gapi.auth2.init();
+                });
+            }
+        </script>
+
+        <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    </div>
+</div>
+</body>
+</html>
